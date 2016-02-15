@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "0288396C3259A4BC2537C88E3972DA9B5A57EA02",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "0288396C3259A4BC2537C88E3972DA9B5A57EA02" : 0,
+    "D9B19E4E0A88D6A55EA0450DF35A0D8062CC31D7" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "6E74BA69-5EC6-48EE-AA21-1851F7198CE3",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "0288396C3259A4BC2537C88E3972DA9B5A57EA02" : "twitter\/",
+    "D9B19E4E0A88D6A55EA0450DF35A0D8062CC31D7" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Twitter",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Twitter\/Twitter.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/BrandonArroyo\/twitter.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0288396C3259A4BC2537C88E3972DA9B5A57EA02"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/BrandonArroyo\/PebbleDev.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D9B19E4E0A88D6A55EA0450DF35A0D8062CC31D7"
+    }
+  ]
+}
