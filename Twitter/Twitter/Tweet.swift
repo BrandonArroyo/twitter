@@ -9,5 +9,6 @@
 import UIKit
 
 class Tweet: NSObject {
-
+    var tweet: String?
+    var timeStamp: String?
 }
