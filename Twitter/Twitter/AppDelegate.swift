@@ -45,37 +45,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
-        TwitterClient.sharedInstance.fetchAccessTokenWithPath("oauth/access_token", method: "POST", requestToken: BDBOAuth1Credential(queryString: url.query), success: { (accessToken: BDBOAuth1Credential!) -> Void in
+        let client = TwitterClient.sharedInstance
+        
+        client.fetchAccessTokenWithPath("oauth/access_token", method: "POST", requestToken: BDBOAuth1Credential(queryString: url.query), success: { (accessToken: BDBOAuth1Credential!) -> Void in
                 print("got it")
             
-            TwitterClient.sharedInstance.requestSerializer.saveAccessToken(accessToken)
+            client.requestSerializer.saveAccessToken(accessToken)
+            client.home_timeline({ (tweets: [Tweet]) -> () in
+                    for tweet in tweets{
+                      print(tweet.text)
+                    }
+            }, failure: { (error: NSError) -> () in
+                print(error.localizedDescription )
+            })
             
-            TwitterClient.sharedInstance.GET("1.1/account/verify_credentials.json", parameters: nil,
-                    success: {(operation: NSURLSessionDataTask, response: AnyObject?) -> Void in
-                            let userDictionary = response as! NSDictionary
-                        
-                            let user = User(dictionary: userDictionary)
-                            print("user \(user) ")
-                            print("name: \(user.name) ")
-                            print("screen_name: \(user.screenname) ")
-                            print("profile_url: \(user.profileUrl) ")
-                            print("descrption: \(user.tagline) ")
-                    
-                    },
-                    failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
-                                print("error")
-                            }
-                )
             
             }){
                 (error: NSError!) -> Void in
                     print("fail")
             }
         
-
         
         
-        
+      
         return true
     }
 

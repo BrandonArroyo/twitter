@@ -12,7 +12,7 @@ import BDBOAuth1Manager
 
 
 
-class ViewController: UIViewController {
+class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,10 +29,7 @@ class ViewController: UIViewController {
 
     @IBAction func onLogin(sender: AnyObject) {
         
-        
-        TwitterClient.sharedInstance.requestSerializer.removeAccessToken()
-        
-        
+        TwitterClient.sharedInstance.deauthorize()
         TwitterClient.sharedInstance.fetchRequestTokenWithPath("oauth/request_token", method: "GET", callbackURL: NSURL(string: "cptwitterdemo://oauth"), scope: nil, success: { (requestToken: BDBOAuth1Credential!) -> Void in
                 print("The request went")
             var authURL =  NSURL(string: "https://api.twitter.com/oauth/authorize?oauth_token=\(requestToken.token)")
