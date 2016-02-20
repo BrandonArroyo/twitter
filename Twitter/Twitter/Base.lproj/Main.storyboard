@@ -24,10 +24,46 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="E90-ai-W8A" kind="modal" identifier="loginSegue" id="II6-yo-9Up"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="130" y="330"/>
+        </scene>
+        <!--Tweets View Controller-->
+        <scene sceneID="RJm-n2-Yw5">
+            <objects>
+                <viewController id="R1M-SO-Osu" customClass="TweetsViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ca2-DQ-1SR">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="P9U-wa-AdO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="94v-Qx-fB2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1089" y="330"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="OQ1-4T-b4R">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="E90-ai-W8A" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Gzy-e7-79H">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="R1M-SO-Osu" kind="relationship" relationship="rootViewController" id="GPC-qX-IF3"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="55n-3a-1lJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="557" y="330"/>
         </scene>
     </scenes>
 </document>
