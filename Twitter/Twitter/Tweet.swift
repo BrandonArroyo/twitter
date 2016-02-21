@@ -17,7 +17,7 @@ class Tweet: NSObject {
     var dictionary: NSDictionary
     var hasRetweeted = false
     var hasFavorated = false
-     var tweetID: String?
+    var tweetID: String?
     
     init(dictionary: NSDictionary){
         self.dictionary = dictionary
