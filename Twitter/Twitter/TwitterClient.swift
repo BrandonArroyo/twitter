@@ -33,6 +33,12 @@ class TwitterClient: BDBOAuth1SessionManager {
         
         fetchAccessTokenWithPath("oauth/access_token", method: "POST", requestToken: BDBOAuth1Credential(queryString: url.query), success: { (accessToken: BDBOAuth1Credential!) -> Void in
                 print("got it")
+            self.current_account({ (user:User) -> () in
+                    User.currentUser = user 
+                    self.loginSuccess?()
+            }, failure: { (error: NSError) -> () in
+                        self.loginFailure?(error)
+            })
             
                 self.loginSuccess?()
             
@@ -61,6 +67,10 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
         
     }
+    func logout(){
+        User.currentUser = nil
+        deauthorize() 
+    }
     
     func home_timeline(success: ([Tweet]) -> (), failure: (NSError) -> () ){
         GET("1.1/statuses/home_timeline.json", parameters: nil,
@@ -81,12 +91,13 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     
     
-    func current_account(){
+    func current_account(success: (User)->(), failure: (NSError)->()){
         GET("1.1/account/verify_credentials.json", parameters: nil,
             success: {(operation: NSURLSessionDataTask, response: AnyObject?) -> Void in
                 let userDictionary = response as! NSDictionary
                 
                 let user = User(dictionary: userDictionary)
+                success(user)
                 print("user \(user) ")
                 print("name: \(user.name) ")
                 print("screen_name: \(user.screenname) ")
@@ -96,6 +107,7 @@ class TwitterClient: BDBOAuth1SessionManager {
             },
             failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
                 print("error")
+                failure(error)
             })
         
         

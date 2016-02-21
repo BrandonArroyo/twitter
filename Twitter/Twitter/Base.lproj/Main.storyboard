@@ -39,9 +39,22 @@
                     <view key="view" contentMode="scaleToFill" id="ca2-DQ-1SR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="YUA-IM-Ka3">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="P9U-wa-AdO"/>
+                    <navigationItem key="navigationItem" id="P9U-wa-AdO">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="WqV-dT-I7E">
+                            <connections>
+                                <action selector="onLogoutButton:" destination="R1M-SO-Osu" id="RFQ-17-iau"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="94v-Qx-fB2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -50,7 +63,7 @@
         <!--Navigation Controller-->
         <scene sceneID="OQ1-4T-b4R">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="E90-ai-W8A" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="TweetsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="E90-ai-W8A" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Gzy-e7-79H">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
