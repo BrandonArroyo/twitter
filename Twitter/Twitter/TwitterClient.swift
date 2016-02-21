@@ -99,11 +99,11 @@ class TwitterClient: BDBOAuth1SessionManager {
                 
                 let user = User(dictionary: userDictionary)
                 success(user)
-                print("user \(user) ")
-                print("name: \(user.name) ")
-                print("screen_name: \(user.screenname) ")
-                print("profile_url: \(user.profileUrl) ")
-                print("descrption: \(user.tagline) ")
+//                print("user \(user) ")
+//                print("name: \(user.name) ")
+//                print("screen_name: \(user.screenname) ")
+//                print("profile_url: \(user.profileUrl) ")
+//                print("descrption: \(user.tagline) ")
                 
             },
             failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in

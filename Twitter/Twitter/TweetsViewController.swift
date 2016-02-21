@@ -7,18 +7,21 @@
 //
 
 import UIKit
+import AFNetworking
 
-class TweetsViewController: UIViewController {
-    var tweets: [Tweet]!
+class TweetsViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
+    var tweets: [Tweet]?
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        tableView.dataSource = self
+        tableView.delegate = self
 
         TwitterClient.sharedInstance.home_timeline({ (tweets: [Tweet]) -> () in
             self.tweets = tweets
-            for tweet in tweets{
-                print(tweet.text)
-            }
+            self.tableView.reloadData()
             }) { (error: NSError) -> () in
                 print(error.localizedDescription)
         }
@@ -34,6 +37,38 @@ class TweetsViewController: UIViewController {
     @IBAction func onLogoutButton(sender: AnyObject) {
         TwitterClient.sharedInstance.logout()
     }
+    
+    
+    
+    @available(iOS 2.0, *)
+    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        if let tweets = self.tweets{
+            return tweets.count
+        }else{
+            return 0
+        }
+
+    }
+    
+    // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
+    // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
+    
+    @available(iOS 2.0, *)
+    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
+        let cell  = tableView.dequeueReusableCellWithIdentifier("tweetCell", forIndexPath: indexPath) as! TweetTableViewCell
+        let tweet = tweets![indexPath.row]
+        print(tweet.text)
+        
+//        cell.textLabel?.text = "row: \(self.tweets[indexPath.row])"
+        
+        
+        
+        return cell
+    }
+    
+    
+    
+    
 
     /*
     // MARK: - Navigation
