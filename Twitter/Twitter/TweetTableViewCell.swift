@@ -24,6 +24,12 @@ class TweetTableViewCell: UITableViewCell {
     
     @IBOutlet weak var profilePicture: UIImageView!
     
+
+    @IBOutlet weak var favoriteImage: UIImageView!
+    
+    @IBOutlet weak var retweetImage: UIImageView!
+    
+    var tweet: Tweet?
     
     override func awakeFromNib() {
         super.awakeFromNib()

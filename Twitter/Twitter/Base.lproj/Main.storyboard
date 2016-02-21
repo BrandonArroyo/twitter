@@ -99,14 +99,24 @@
                                                     <color key="textColor" red="0.46386207460732987" green="0.46386207460732987" blue="0.46386207460732987" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="retweet" highlightedImage="retweeted" id="hc0-wb-bpR">
+                                                    <rect key="frame" x="85" y="115" width="21" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="like" highlightedImage="liked" id="HcF-Kq-W0b">
+                                                    <rect key="frame" x="228" y="115" width="21" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="createdAt" destination="n01-HI-Fgb" id="pJC-14-LxY"/>
                                             <outlet property="favoriteCount" destination="udC-bQ-izL" id="XKD-KG-qDk"/>
+                                            <outlet property="favoriteImage" destination="HcF-Kq-W0b" id="9ls-G8-3LE"/>
                                             <outlet property="name" destination="DGP-lB-zqQ" id="oYm-O4-W1k"/>
                                             <outlet property="profilePicture" destination="Kbf-Fm-Yam" id="jlc-DC-Sui"/>
                                             <outlet property="retweetCount" destination="L7z-kI-W94" id="Oxt-dV-WtW"/>
+                                            <outlet property="retweetImage" destination="hc0-wb-bpR" id="s3K-1m-27w"/>
                                             <outlet property="screenName" destination="oph-xe-c9E" id="rbb-Oj-c4j"/>
                                             <outlet property="tweetContent" destination="gwk-P9-adA" id="29H-PO-qzG"/>
                                         </connections>
@@ -150,4 +160,10 @@
             <point key="canvasLocation" x="557" y="330"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="like" width="54" height="72"/>
+        <image name="liked" width="54" height="72"/>
+        <image name="retweet" width="75" height="72"/>
+        <image name="retweeted" width="75" height="72"/>
+    </resources>
 </document>

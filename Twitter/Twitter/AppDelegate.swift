@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
-        let client = TwitterClient.sharedInstance.handleOpenUrl(url)
+        TwitterClient.sharedInstance.handleOpenUrl(url)
        
         
       

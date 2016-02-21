@@ -99,11 +99,7 @@ class TwitterClient: BDBOAuth1SessionManager {
                 
                 let user = User(dictionary: userDictionary)
                 success(user)
-//                print("user \(user) ")
-//                print("name: \(user.name) ")
-//                print("screen_name: \(user.screenname) ")
-//                print("profile_url: \(user.profileUrl) ")
-//                print("descrption: \(user.tagline) ")
+
                 
             },
             failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
@@ -113,6 +109,44 @@ class TwitterClient: BDBOAuth1SessionManager {
         
         
     }
+    
+    
+    func retweetWithTweetID(tweetID: String,params: NSDictionary?, completion: (response: NSDictionary?,error: NSError?) -> ()){
+        TwitterClient.sharedInstance.POST("1.1/statuses/retweet/\(tweetID).json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+            completion(response: response as? NSDictionary,error: nil)
+            })
+            { (operation: NSURLSessionDataTask?, error:NSError) -> Void in
+                completion(response: nil,error: error)
+        }
+    }
+    
+    func unRetweetWithTweetID(tweetID: String,params: NSDictionary?, completion: (response: NSDictionary?,error: NSError?) -> ()){
+        TwitterClient.sharedInstance.POST("1.1/statuses/unretweet/\(tweetID).json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+            completion(response: response as? NSDictionary,error: nil)
+            })
+            { (operation: NSURLSessionDataTask?, error:NSError) -> Void in
+                completion(response: nil,error: error)
+        }
+    }
+    
+    func favoratedWithTweetID(tweetID: String,params: NSDictionary?, completion: (response: NSDictionary?,error: NSError?) -> ()){
+        TwitterClient.sharedInstance.POST("https://api.twitter.com/1.1/favorites/create.json?id=\(tweetID)", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+            completion(response: response as? NSDictionary,error: nil)
+            })
+            { (operation: NSURLSessionDataTask?, error:NSError) -> Void in
+                completion(response: nil,error: error)
+        }
+    }
+    
+    func unFavoratedWithTweetID(tweetID: String,params: NSDictionary?, completion: (response: NSDictionary?,error: NSError?) -> ()){
+        TwitterClient.sharedInstance.POST("https://api.twitter.com/1.1/favorites/destroy.json?id=\(tweetID)", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+            completion(response: response as? NSDictionary,error: nil)
+            })
+            { (operation: NSURLSessionDataTask?, error:NSError) -> Void in
+                completion(response: nil,error: error)
+        }
+    }
+
     
   
 
