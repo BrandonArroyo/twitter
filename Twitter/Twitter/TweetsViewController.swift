@@ -9,18 +9,20 @@
 import UIKit
 import AFNetworking
 
-class TweetsViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
+class TweetsViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate {
     var tweets: [Tweet]?
     var refreshControl: UIRefreshControl!
+    let client = TwitterClient.sharedInstance
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView.dataSource = self
         tableView.delegate = self
 
-        TwitterClient.sharedInstance.home_timeline({ (tweets: [Tweet]) -> () in
+        self.client.home_timeline({ (tweets: [Tweet]) -> () in
             self.tweets = tweets
             self.tableView.reloadData()
             }) { (error: NSError) -> () in
@@ -30,7 +32,7 @@ class TweetsViewController: UIViewController,UITableViewDataSource,UITableViewDe
         refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
         tableView.insertSubview(refreshControl, atIndex: 0)
 
-        // Do any additional setup after loading the view.
+      
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,6 +52,7 @@ class TweetsViewController: UIViewController,UITableViewDataSource,UITableViewDe
     
     @available(iOS 2.0, *)
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        
         if let tweets = self.tweets{
             return tweets.count
         }else{
@@ -63,24 +66,12 @@ class TweetsViewController: UIViewController,UITableViewDataSource,UITableViewDe
     
     @available(iOS 2.0, *)
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
+        
         let cell  = tableView.dequeueReusableCellWithIdentifier("tweetCell", forIndexPath: indexPath) as! TweetTableViewCell
         let tweet = tweets![indexPath.row]
         
         
-        
-//        @IBOutlet weak var screenName: UILabel!
-//        
-//        @IBOutlet weak var name: UILabel!
-//        
-//        @IBOutlet weak var createdAt: UILabel!
-//        
-//        @IBOutlet weak var tweetContent: UILabel!
-//        
-//        @IBOutlet weak var retweetCount: UILabel!
-//        
-//        @IBOutlet weak var favoriteCount: UILabel!
-//        
-//        @IBOutlet weak var profilePicture: UIImageView!
+
 
         cell.tweetContent.text = tweet.text
         cell.screenName.text = tweet.user!.screenname! as String
@@ -101,8 +92,8 @@ class TweetsViewController: UIViewController,UITableViewDataSource,UITableViewDe
             cell.retweetImage.highlighted = true
         }
         
-//        
-        let favorateTapAction = UITapGestureRecognizer(target: self, action: "favorate:")
+        
+        let favorateTapAction = UITapGestureRecognizer(target: self, action: "favorite:")
         cell.favoriteImage.tag = indexPath.row
         cell.favoriteImage.userInteractionEnabled = true
         cell.favoriteImage.addGestureRecognizer(favorateTapAction)
@@ -116,6 +107,7 @@ class TweetsViewController: UIViewController,UITableViewDataSource,UITableViewDe
         
         return cell
     }
+    
     func convertTimeToString(number: Int) -> String{
         let day = number/86400
         let hour = (number - day * 86400)/3600
@@ -131,10 +123,10 @@ class TweetsViewController: UIViewController,UITableViewDataSource,UITableViewDe
     
     
     func onRefresh(){
-        delay(2, closure: {
+        delay(2.5, closure: {
             self.refreshControl.endRefreshing()
         })
-        TwitterClient.sharedInstance.home_timeline({ (tweets: [Tweet]) -> () in
+            self.client.home_timeline({ (tweets: [Tweet]) -> () in
             self.tweets = tweets
             self.tableView.reloadData()
             }) { (error: NSError) -> () in
@@ -167,21 +159,21 @@ class TweetsViewController: UIViewController,UITableViewDataSource,UITableViewDe
             print(index)
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0)) as! TweetTableViewCell
             if (!cell.tweet!.hasRetweeted){
-                print("tet")
-                TwitterClient.sharedInstance.retweetWithTweetID(tweets![index].tweetID!, params: nil, completion: { (response, error) -> () in
+               
+                self.client.retweetWithTweetID(tweets![index].tweetID!, params: nil, completion: { (response, error) -> () in
                     if (error == nil){
-                        self.tweets![index].retweetCount += 1
                         self.tweets![index].hasRetweeted = true
+                        self.tweets![index].retweetCount += 1
                         cell.retweetCount.text = String(Int(cell.retweetCount.text!)! + 1)
                         cell.tweet!.hasRetweeted = true
                         cell.retweetImage.highlighted = true
                     }else{
-                        print("Retweeted fail: \(error!.description)")
+                        print("Retweeted failed: \(error!.description)")
                     }
                 })
             }else{
-                    print("im trying asdfasd adsfa")
-                TwitterClient.sharedInstance.unRetweetWithTweetID(tweets![index].tweetID!, params: nil, completion: { (response, error) -> () in
+                
+                self.client.unRetweetWithTweetID(tweets![index].tweetID!, params: nil, completion: { (response, error) -> () in
                     if (error == nil){
                         self.tweets![index].retweetCount -= 1
                         self.tweets![index].hasRetweeted = false
@@ -189,14 +181,14 @@ class TweetsViewController: UIViewController,UITableViewDataSource,UITableViewDe
                         cell.tweet!.hasRetweeted = false
                         cell.retweetImage.highlighted = false
                     }else{
-                        print("Unretweeted fail: \(error!.description)")
+                        print("Unretweeted failed: \(error!.description)")
                     }
                 })
             }
         }
     }
 //
-    func favorate(sender: UITapGestureRecognizer){
+    func favorite(sender: UITapGestureRecognizer){
         if sender.state != .Ended{
             return
         }
@@ -204,7 +196,7 @@ class TweetsViewController: UIViewController,UITableViewDataSource,UITableViewDe
         if let index = index{
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0)) as! TweetTableViewCell
             if (!cell.tweet!.hasFavorated){
-                TwitterClient.sharedInstance.favoratedWithTweetID(tweets![index].tweetID!, params: nil, completion: { (response, error) -> () in
+                self.client.favoratedWithTweetID(tweets![index].tweetID!, params: nil, completion: { (response, error) -> () in
                     if (error == nil){
                         self.tweets![index].favoritesCount += 1
                         self.tweets![index].hasFavorated = true
@@ -212,11 +204,11 @@ class TweetsViewController: UIViewController,UITableViewDataSource,UITableViewDe
                         cell.tweet!.hasFavorated = true
                         cell.favoriteImage.highlighted = true
                     }else{
-                        print("favorated fail: \(error!.description)")
+                        print("favorited failed: \(error!.description)")
                     }
                 })
             }else{
-                TwitterClient.sharedInstance.unFavoratedWithTweetID(tweets![index].tweetID!, params: nil, completion: { (response, error) -> () in
+                self.client.unFavoratedWithTweetID(tweets![index].tweetID!, params: nil, completion: { (response, error) -> () in
                     if (error == nil){
                         self.tweets![index].favoritesCount -= 1
                         self.tweets![index].hasFavorated = false
@@ -224,14 +216,15 @@ class TweetsViewController: UIViewController,UITableViewDataSource,UITableViewDe
                         cell.tweet!.hasFavorated = false
                         cell.favoriteImage.highlighted = false
                     }else{
-                        print("unfavorated fail: \(error!.description)")
+                        print("unfavorited failed: \(error!.description)")
                     }
                 })
             }
         }
         
     }
-//
+    
+ 
     /*
     // MARK: - Navigation
 
