@@ -57,13 +57,47 @@ class TweetsViewController: UIViewController,UITableViewDataSource,UITableViewDe
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         let cell  = tableView.dequeueReusableCellWithIdentifier("tweetCell", forIndexPath: indexPath) as! TweetTableViewCell
         let tweet = tweets![indexPath.row]
-        print(tweet.text)
         
-//        cell.textLabel?.text = "row: \(self.tweets[indexPath.row])"
+        
+        
+//        @IBOutlet weak var screenName: UILabel!
+//        
+//        @IBOutlet weak var name: UILabel!
+//        
+//        @IBOutlet weak var createdAt: UILabel!
+//        
+//        @IBOutlet weak var tweetContent: UILabel!
+//        
+//        @IBOutlet weak var retweetCount: UILabel!
+//        
+//        @IBOutlet weak var favoriteCount: UILabel!
+//        
+//        @IBOutlet weak var profilePicture: UIImageView!
+
+        cell.tweetContent.text = tweet.text
+        cell.screenName.text = tweet.user!.screenname! as String
+        cell.name.text = "@\(tweet.user!.name!)"
+        cell.createdAt.text = convertTimeToString(Int(NSDate().timeIntervalSinceDate(tweet.timeStamp!)))
+        cell.name.text = "@\(tweet.user!.name!)"
+        cell.retweetCount.text = String(tweet.retweetCount)
+        cell.favoriteCount.text = String(tweet.favoritesCount)
+        cell.profilePicture.setImageWithURL((tweet.user?.profileUrl)!)
         
         
         
         return cell
+    }
+    func convertTimeToString(number: Int) -> String{
+        let day = number/86400
+        let hour = (number - day * 86400)/3600
+        let minute = (number - day * 86400 - hour * 3600)/60
+        if day != 0{
+            return String(day) + "d"
+        }else if hour != 0 {
+            return String(hour) + "h"
+        }else{
+            return String(minute) + "m"
+        }
     }
     
     

@@ -64,7 +64,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created At" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="n01-HI-Fgb">
-                                                    <rect key="frame" x="242" y="28" width="70" height="17"/>
+                                                    <rect key="frame" x="219" y="28" width="93" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.57378926701570676" green="0.57378926701570676" blue="0.57378926701570676" alpha="1" colorSpace="calibratedRGB"/>
@@ -79,7 +79,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DGP-lB-zqQ">
-                                                    <rect key="frame" x="105" y="28" width="38" height="17"/>
+                                                    <rect key="frame" x="105" y="28" width="65" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.55530104712041883" green="0.55530104712041883" blue="0.55530104712041883" alpha="1" colorSpace="calibratedRGB"/>
@@ -101,6 +101,15 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="createdAt" destination="n01-HI-Fgb" id="pJC-14-LxY"/>
+                                            <outlet property="favoriteCount" destination="udC-bQ-izL" id="XKD-KG-qDk"/>
+                                            <outlet property="name" destination="DGP-lB-zqQ" id="oYm-O4-W1k"/>
+                                            <outlet property="profilePicture" destination="Kbf-Fm-Yam" id="jlc-DC-Sui"/>
+                                            <outlet property="retweetCount" destination="L7z-kI-W94" id="Oxt-dV-WtW"/>
+                                            <outlet property="screenName" destination="oph-xe-c9E" id="rbb-Oj-c4j"/>
+                                            <outlet property="tweetContent" destination="gwk-P9-adA" id="29H-PO-qzG"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
