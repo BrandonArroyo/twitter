@@ -22,7 +22,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc =  storyboard.instantiateViewControllerWithIdentifier("TweetsNavigationController")
             window?.rootViewController = vc
-        } 
+        }
+        
+        NSNotificationCenter.defaultCenter().addObserverForName(User.userDidLoadLogoutNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (NSNotification) -> Void in
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc =  storyboard.instantiateInitialViewController()
+            self.window?.rootViewController = vc
+        }
         return true
     }
 
