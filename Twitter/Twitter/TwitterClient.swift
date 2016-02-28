@@ -51,7 +51,10 @@ class TwitterClient: BDBOAuth1SessionManager {
         
         
         
+        
     }
+    
+    
     func login(success:()->(),failure: (NSError)-> ()) {
         loginSuccess =  success
         loginFailure = failure
@@ -123,6 +126,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     func unRetweetWithTweetID(tweetID: String,params: NSDictionary?, completion: (response: NSDictionary?,error: NSError?) -> ()){
         TwitterClient.sharedInstance.POST("1.1/statuses/unretweet/\(tweetID).json", parameters: params, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
             completion(response: response as? NSDictionary,error: nil)
+            
             })
             { (operation: NSURLSessionDataTask?, error:NSError) -> Void in
                 completion(response: nil,error: error)
@@ -147,6 +151,30 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
 
+    
+    
+    
+    
+    func sendTweet(tweet: String, params: NSDictionary?, completion: (tweet: Tweet?,error :NSError?)->()) {
+        var parameters = [String: AnyObject]()
+        parameters["status"] = tweet
+        if let params = params{
+            for (key,value) in params{
+                parameters[key as! String] = value
+            }
+        }
+        TwitterClient.sharedInstance.POST("1.1/statuses/update.json", parameters: parameters, success: { (operation: NSURLSessionDataTask, response: AnyObject?) -> Void in
+            
+            completion(tweet: Tweet(dictionary: (response as! NSDictionary)),error: nil)
+            
+            }) { (operation: NSURLSessionDataTask?, error:NSError) -> Void in
+                
+                completion(tweet: nil,error: error)
+        }
+        
+    }
+    
+  
     
   
 

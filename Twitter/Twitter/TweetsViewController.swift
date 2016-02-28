@@ -9,6 +9,13 @@
 import UIKit
 import AFNetworking
 
+
+
+
+//var theseTweets : [tweet]?
+
+
+
 class TweetsViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate {
     var tweets: [Tweet]?
     var refreshControl: UIRefreshControl!
@@ -17,11 +24,13 @@ class TweetsViewController: UIViewController,UITableViewDataSource,UITableViewDe
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
+       
+        
         super.viewDidLoad()
         
         tableView.dataSource = self
         tableView.delegate = self
-
+        
         self.client.home_timeline({ (tweets: [Tweet]) -> () in
             self.tweets = tweets
             self.tableView.reloadData()
@@ -224,15 +233,25 @@ class TweetsViewController: UIViewController,UITableViewDataSource,UITableViewDe
         
     }
     
- 
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        if let cell = sender as? TweetTableViewCell {
+            
+            if let detailViewController = segue.destinationViewController as? DetailViewController{
+               detailViewController.tweet = tweets![tableView.indexPathForCell(cell)!.row]
+                print("detail View")
+            }
+//
+        }else {
+           print("we have a problem")
+        }
+
+        
     }
-    */
+
 
 }
